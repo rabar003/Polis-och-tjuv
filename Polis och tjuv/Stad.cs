@@ -66,12 +66,14 @@ namespace Polis_och_tjuv
             if (person1 is Polis && person2 is Tjuv)
             {
                 ((Polis)person1).Grip((Tjuv)person2);
+                fängelse.LäggTillFånge((Tjuv)person2);
                 personer.Remove(person2); // Ta bort tjuven från staden
                 antalGripnaTjuvar++;
             }
             else if (person1 is Tjuv && person2 is Polis)
             {
                 ((Polis)person2).Grip((Tjuv)person1);
+                fängelse.LäggTillFånge((Tjuv)person1);
                 personer.Remove(person1); // Ta bort tjuven från staden
                 antalGripnaTjuvar++;
             }
