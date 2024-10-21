@@ -124,6 +124,7 @@ namespace Polis_och_tjuv
             Console.WriteLine($"Antal rånade medborgare: {antalRånadeMedborgare}");
             Console.WriteLine($"Antal gripna tjuvar: {antalGripnaTjuvar}");
         }
+        private Fängelse fängelse = new Fängelse();
 
     }
 }
