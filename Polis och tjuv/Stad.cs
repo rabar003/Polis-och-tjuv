@@ -119,6 +119,29 @@ namespace Polis_och_tjuv
                 {
                     Console.Write(karta[y, x]);
                 }
+                // Här börjar vi rita fängelset bredvid stadens karta på samma rad
+                if (y == 0)
+                {
+                    Console.Write("    Fängelse:");
+                }
+                else if (y == 1)
+                {
+                    Console.Write("    ########");
+                }
+                else if (y >= 2 && y < 2 + fängelse.Fångar.Count)
+                {
+                    Console.Write("    # Tjuv  #");  // Varje tjuv ritas som en rad
+                }
+                else if (y >= 2 + fängelse.Fångar.Count && y < 7)  // 7 är höjden på fängelset
+                {
+                    Console.Write("    #        #");  // Tomma rader i fängelset
+                }
+                else if (y == 7)
+                {
+                    Console.Write("    ########");
+                }
+
+                Console.WriteLine();  // Ny rad för både stadskartan och fängelset
             }
         }
         public void VisaStatistik()
