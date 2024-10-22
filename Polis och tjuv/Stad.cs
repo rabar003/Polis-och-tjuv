@@ -8,17 +8,18 @@ namespace Polis_och_tjuv
 {
     public class Stad
     {
-        private int bredd;
-        private int höjd;
-        private List<Person> personer;
-        private int antalRånadeMedborgare;
-        private int antalGripnaTjuvar;
+        private int bredd; // Stadens bredd
+        private int höjd;  // Stadens höjd
+        private List<Person> personer; // Lista över alla personer (poliser, tjuvar och medborgare) i staden
+        private int antalRånadeMedborgare; // Räknar antalet rånade medborgare
+        private int antalGripnaTjuvar;  // Räknar antalet gripna tjuvar
 
+        // Konstruktor för att skapa staden med angiven storlek och antal personer
         public Stad(int bredd, int höjd, int antalPoliser, int antalTjuvar, int antalMedborgare)
         {
             this.bredd = bredd;
             this.höjd = höjd;
-            personer = new List<Person>();
+            personer = new List<Person>(); // Skapar en lista för alla personer
             antalRånadeMedborgare = 0;
             antalGripnaTjuvar = 0;
 
@@ -40,8 +41,10 @@ namespace Polis_och_tjuv
                 personer.Add(new Medborgare(RandomCoord(bredd), RandomCoord(höjd)));
             }
         }
+        // Genererar en slumpmässig koordinat inom stadens gränser
         private int RandomCoord(int max) => new Random().Next(max);
 
+        // Uppdatera stadens tillstånd (rörelse och möten)
         public void Uppdatera()
         {
             foreach (var person in personer)
@@ -54,6 +57,7 @@ namespace Polis_och_tjuv
             {
                 for (int j = i + 1; j < personer.Count; j++)
                 {
+                    // Om två personer har samma koordinater, hantera mötet
                     if (personer[i].X == personer[j].X && personer[i].Y == personer[j].Y)
                     {
                         HanteraMöte(personer[i], personer[j]);
@@ -61,6 +65,7 @@ namespace Polis_och_tjuv
                 }
             }
         }
+        // Hanterar vad som händer när två personer möts
         private void HanteraMöte(Person person1, Person person2)
         {
             if (person1 is Polis && person2 is Tjuv)
@@ -88,6 +93,7 @@ namespace Polis_och_tjuv
                 antalRånadeMedborgare++;
             }
         }
+        // Ritar ut stadens karta med personer och fängelset
         public void RitaStad()
         {
             char[,] karta = new char[höjd, bredd];
@@ -144,6 +150,7 @@ namespace Polis_och_tjuv
                 Console.WriteLine();  // Ny rad för både stadskartan och fängelset
             }
         }
+        // Visar statistik för simulationen 
         public void VisaStatistik()
         {
             Console.WriteLine($"Antal rånade medborgare: {antalRånadeMedborgare}");
