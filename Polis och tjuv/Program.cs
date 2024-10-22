@@ -20,6 +20,9 @@
                 // Uppdaterar stadens tillstånd (antagligen positioner för poliser, tjuvar, händelser etc.)
                 stad.Uppdatera();
 
+                // För att visa statistiken 
+                stad.VisaStatistik();
+
 
                 Thread.Sleep(1000); // paus mellan varje iteration
 
