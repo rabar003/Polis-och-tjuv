@@ -24,7 +24,7 @@
                 stad.VisaStatistik();
 
 
-                Thread.Sleep(1000); // paus mellan varje iteration
+                Thread.Sleep(1500); // paus mellan varje iteration
 
             }
         }
