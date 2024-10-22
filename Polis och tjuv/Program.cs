@@ -20,6 +20,7 @@
                 // Uppdaterar stadens tillstånd (antagligen positioner för poliser, tjuvar, händelser etc.)
                 stad.Uppdatera();
 
+                Console.WriteLine("∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼∼"); // gör att lite mer snyggare 
                 // För att visa statistiken 
                 stad.VisaStatistik();
 
