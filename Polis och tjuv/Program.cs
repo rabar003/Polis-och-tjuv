@@ -21,7 +21,7 @@
                 stad.Uppdatera();
 
 
-                Thread.Sleep(2000); // paus mellan varje iteration
+                Thread.Sleep(1000); // paus mellan varje iteration
 
             }
         }
