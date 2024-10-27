@@ -64,6 +64,8 @@ namespace Polis_och_tjuv
                     }
                 }
             }
+            // anropa att uppdatera fängelset 
+            fängelse.Uppdatera();
         }
         // Hanterar vad som händer när två personer möts
         private void HanteraMöte(Person person1, Person person2)
@@ -125,16 +127,18 @@ namespace Polis_och_tjuv
                 {
                     Console.Write(karta[y, x]);
                 }
+
+
                 // Här börjar vi rita fängelset bredvid stadens karta på samma rad
                 if (y == 0)
                 {
                     Console.Write("    Fängelse:");
                 }
-                else if (y == 1)
+                else if (y == 1 || y == fängelse.höjd + 2 )
                 {
                     Console.Write("    ########");
                 }
-                else if (y >= 2 && y < 2 + fängelse.Fångar.Count)
+                else if (y >= 2 && y < 2 +  fängelse.Fångar.Count)
                 {
                     Console.Write("    # Tjuv  #");  // Varje tjuv ritas som en rad
                 }

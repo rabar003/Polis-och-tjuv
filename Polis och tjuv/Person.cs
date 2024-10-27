@@ -85,6 +85,24 @@ namespace Polis_och_tjuv
                 Console.WriteLine("Tjuv rånar medborgare på " + stulenSak);
             }
         }
+        // ska metod för att tjuvarna ska kunna röra sig i fängelset 
+        public void MoveInPrison(int prisonWidth, int prisonHeight)
+        {
+            // Flytta enligt nuvarande riktning
+            X += XDirection;
+            Y += YDirection;
+
+            // Om tjuven når gränsen, byt riktning slumpmässigt
+            if (X < 0 || X >= prisonWidth || Y < 0 || Y >= prisonHeight)
+            {
+                SetRandomDirection();
+                // Se till att tjuven stannar inom fängelset
+                if (X < 0) X = 0;
+                if (X >= prisonWidth) X = prisonWidth - 1;
+                if (Y < 0) Y = 0;
+                if (Y >= prisonHeight) Y = prisonHeight - 1;
+            }
+        }
     }
 
     // Subbklass för Polis
