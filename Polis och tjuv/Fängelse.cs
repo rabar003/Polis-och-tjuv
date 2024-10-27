@@ -36,7 +36,7 @@ namespace Polis_och_tjuv
         {
             foreach (var fånge in Fångar)
             {
-                fånge.Move(höjd, bredd);
+                fånge.MoveInPrison(höjd, bredd);
             }
         
         
