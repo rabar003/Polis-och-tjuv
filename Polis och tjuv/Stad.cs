@@ -13,6 +13,7 @@ namespace Polis_och_tjuv
         private List<Person> personer; // Lista över alla personer (poliser, tjuvar och medborgare) i staden
         private int antalRånadeMedborgare; // Räknar antalet rånade medborgare
         private int antalGripnaTjuvar;  // Räknar antalet gripna tjuvar
+        private Fängelse fängelse;
 
         // Konstruktor för att skapa staden med angiven storlek och antal personer
         public Stad(int bredd, int höjd, int antalPoliser, int antalTjuvar, int antalMedborgare)
@@ -22,6 +23,8 @@ namespace Polis_och_tjuv
             personer = new List<Person>(); // Skapar en lista för alla personer
             antalRånadeMedborgare = 0;
             antalGripnaTjuvar = 0;
+
+            fängelse = new Fängelse(10, 10);
 
             // Skapa poliser
             for (int i = 0; i < antalPoliser; i++)
@@ -99,6 +102,7 @@ namespace Polis_och_tjuv
         public void RitaStad()
         {
             char[,] karta = new char[höjd, bredd];
+            char[,] fängelseKarta = new char[fängelse.höjd, fängelse.bredd]; // Skapa en separat fängelsekarta
 
             // Rensa kartan
             for (int y = 0; y < höjd; y++)
@@ -106,6 +110,14 @@ namespace Polis_och_tjuv
                 for (int x = 0; x < bredd; x++)
                 {
                     karta[y, x] = '-';
+                }
+            }
+            // Rensa fängelsekartan
+            for (int y = 0; y < fängelse.höjd; y++)
+            {
+                for (int x = 0; x < fängelse.bredd; x++)
+                {
+                    fängelseKarta[y, x] = ' '; // Tomma fängelseceller
                 }
             }
 
@@ -119,6 +131,11 @@ namespace Polis_och_tjuv
                 else if (person is Medborgare)
                     karta[person.Y, person.X] = 'M';
             }
+            // Placera fångar på fängelsekartan
+            foreach (var fånge in fängelse.Fångar)
+            {
+                fängelseKarta[fånge.Y, fånge.X] = 'T'; // Tjuvarna ritas ut på sina positioner i fängelset
+            }
 
             // Rita ut kartan
             for (int y = 0; y < höjd; y++)
@@ -128,40 +145,55 @@ namespace Polis_och_tjuv
                     Console.Write(karta[y, x]);
                 }
 
+                // Rita fängelsekartan bredvid stadskartan
+                if (y < fängelse.höjd)
+                {
+                    // Ändring: Lägg till en titel "Fängelse" ovanför fängelset
+                    if (y == 0)
+                    {
+                        Console.Write("    # Fängelse #"); // Fängelse titel
+                    }
+                    else
+                    {
+                        Console.Write("    #"); // Rita vägg på sidan av fängelset
+                    }
 
-                // Här börjar vi rita fängelset bredvid stadens karta på samma rad
-                if (y == 0)
-                {
-                    Console.Write("    Fängelse:");
+                    for (int x = 0; x < fängelse.bredd; x++)
+                    {
+                        // Ändring: Lägg till väggar på fängelsekartan
+                        if (y == 0 || y == fängelse.höjd - 1) // Över och under fängelset
+                        {
+                            Console.Write('#'); // Över och under fängelse
+                        }
+                        else
+                        {
+                            Console.Write(fängelseKarta[y, x]); // Skriv ut fängelseinnehåll
+                        }
+                    }
+                    Console.Write("#"); // Höger vägg
                 }
-                else if (y == 1 || y == fängelse.höjd + 2 )
+                else
                 {
-                    Console.Write("    ########");
-                }
-                else if (y >= 2 && y < 2 +  fängelse.Fångar.Count)
-                {
-                    Console.Write("    # Tjuv  #");  // Varje tjuv ritas som en rad
-                }
-                else if (y >= 2 + fängelse.Fångar.Count && y < 7)  // 7 är höjden på fängelset
-                {
-                    Console.Write("    #        #");  // Tomma rader i fängelset
-                }
-                else if (y == 7)
-                {
-                    Console.Write("    ########");
+                    Console.Write("          "); // Utrymme under fängelset om staden är högre
                 }
 
-                Console.WriteLine();  // Ny rad för både stadskartan och fängelset
+                Console.WriteLine(); // Ny rad för stadskartan och fängelset
             }
+
+           
+
+           
         }
         // Visar statistik för simulationen 
         public void VisaStatistik()
         {
             Console.WriteLine($"Antal rånade medborgare: {antalRånadeMedborgare}");
             Console.WriteLine($"Antal gripna tjuvar: {antalGripnaTjuvar}");
-         
+
         }
-        private Fängelse fängelse = new Fängelse();
+        
 
     }
+
+
 }

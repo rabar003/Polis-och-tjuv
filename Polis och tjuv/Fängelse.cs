@@ -8,10 +8,17 @@ namespace Polis_och_tjuv
 {
     public class Fängelse
     {
-        public int bredd = 6; // bredd på fängelset 
-        public int höjd = 10; // höjd på fängelset 
+        public int bredd ; // bredd på fängelset 
+        public int höjd ; // höjd på fängelset 
         // En lista som håller alla tjuvar som är fångar i fängelset
         public List<Tjuv> Fångar { get;private set; }
+
+        public Fängelse(int bredd, int höjd)
+        {
+            this.bredd = bredd;
+            this.höjd = höjd;
+            Fångar = new List<Tjuv>(); // Skapar en tom lista för fångarna
+        }
 
         // Konstruktor för att skapa ett fängelse
         public Fängelse() 
@@ -23,13 +30,20 @@ namespace Polis_och_tjuv
 
         // Metod för att lägga till en tjuv till fängelset
         public void LäggTillFånge(Tjuv tjuv) 
-        { 
-            tjuv.X = new Random().Next(bredd);
-            tjuv.Y = new Random().Next(höjd);
+        {
+            // Generera unika positioner för fångarna
+            int x, y;
+            do
+            {
+                x = new Random().Next(bredd);
+                y = new Random().Next(höjd);
+            } while (Fångar.Any(fånge => fånge.X == x && fånge.Y == y)); // Kontrollera om positionen redan är upptagen
+
+            tjuv.X = x;
+            tjuv.Y = y;
 
             Fångar.Add(tjuv); // Lägger tjuven till listan över fångar
-            Console.WriteLine(" Tjuven har Plascerats i fängelse.");
-        
+            Console.WriteLine("Tjuven har placerats i fängelse.");
         }
 
         public void Uppdatera() 
